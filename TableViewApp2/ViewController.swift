@@ -9,12 +9,12 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-//    Link the tableview to the code with name of petTable
+    @IBOutlet weak var petTable: UITableView!
     
     let petArray = ["cat", "dog", "parakeet", "parrot", "canary", "finch", "tropical fish", "goldfish", "sea horses", "hamster", "gerbil", "rabbit", "turtle", "snake", "lizard", "hermit crab"]
     
     let cellID = "cellID"
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         petTable.delegate = self
@@ -27,7 +27,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: cellID)
+        var cell = tableView.dequeueReusableCell(withIdentifier: "cellID")
         if (cell == nil) {
             cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: cellID)
         }
@@ -35,6 +35,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell!
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedItem = petArray[indexPath.row]
+        let alert = UIAlertController(title: "Your Choice", message: "\(selectedItem)", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { action -> Void in})
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
 
 }
 
